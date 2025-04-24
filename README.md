@@ -20,3 +20,4 @@ Este é uma implementação simples e divertida do clássico jogo da cobra. O ob
     * `←` (Seta para a esquerda): Move a cobra para a esquerda.
     * `→` (Seta para a direita): Move a cobra para a direita.
 
+# testejogo
