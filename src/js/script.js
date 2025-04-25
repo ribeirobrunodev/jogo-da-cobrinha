@@ -8,14 +8,10 @@ const buttonPlay = document.querySelector(".btn-play");
 
 const audio = new Audio("./src/assets/audio.mp3");
 
-const background = new Image()
-background.src = "./src/assets/capa.gif"
-const size = 20;
+const background = new Image();
+background.src = "./src/assets/capa.gif";
 
-canvas.width = size * 32;  // 32 colunas
-canvas.height = size * 24; // 24 linhas
-
-
+const size = 30;
 
 const initialPosition = { x: 240, y: 240 };
 
@@ -29,10 +25,9 @@ const randomNumber = (min, max) => {
   return Math.round(Math.random() * (max - min) + min);
 };
 const randomPosition = () => {
-    const number = randomNumber(0, canvas.width - size);
-    return Math.round(number / size) * size; // foi 30 antes
-  };
-  
+  const number = randomNumber(0, canvas.width - size);
+  return Math.round(number / 20) * 20;
+};
 
 const randomColor = () => {
   const red = randomNumber(0, 255);
@@ -97,22 +92,21 @@ const moveSnake = () => {
 };
 
 const drawGrid = () => {
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = "#191919";
-  
-    for (let i = size; i < canvas.width; i += size) {
-      ctx.beginPath();
-      ctx.lineTo(i, 0);
-      ctx.lineTo(i, canvas.height); // <-- Use altura real do canvas
-      ctx.stroke();
-  
-      ctx.beginPath();
-      ctx.lineTo(0, i);
-      ctx.lineTo(canvas.width, i); // <-- Use largura real do canvas
-      ctx.stroke();
-    }
-  };
-  
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = "#191919";
+
+  for (let i = 30; i < canvas.width; i += 30) {
+    ctx.beginPath();
+    ctx.lineTo(i, 0);
+    ctx.lineTo(i, 600);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.lineTo(0, i);
+    ctx.lineTo(600, i);
+    ctx.stroke();
+  }
+};
 
 const chackEat = () => {
   const head = snake[snake.length - 1];
@@ -162,24 +156,24 @@ const gameOver = () => {
 };
 
 const gameLoop = () => {
-    clearInterval(loopId);
-  
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
-    // Desenha o fundo primeiro
-    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-  
-    drawGrid();
-   drawFood();
-    moveSnake();
-    drawSnake();
-    chackEat();
-    checkCollision();
-  
-    loopId = setTimeout(() => {
-      gameLoop();
-    }, 300);
-  };
+  clearInterval(loopId);
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Desenha o fundo primeiro
+  ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+
+  drawGrid();
+  drawFood();
+  moveSnake();
+  drawSnake();
+  chackEat();
+  checkCollision();
+
+  loopId = setTimeout(() => {
+    gameLoop();
+  }, 300);
+};
 
 gameLoop();
 
